@@ -8,7 +8,7 @@ A web based node.js app about Communication Management.
 
 ## Getting Started
 
-These instructions will get you a copy of the project. You will be able to run the project on your local machine for development and testing. This project is terted and works on Linux but it should work on any OS.
+These instructions will get you a copy of the project. You will be able to run the project on your local machine for development and testing. This project is tested and works on **Linux** but it should work on any OS.
 
 ### Prerequisites
 
