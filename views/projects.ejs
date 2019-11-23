@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="<%= csrfToken %>">
+
+        <title>Administration Signin Page</title>
+
+        <!-- Bootstrap -->
+        <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Custom Theme Style -->
+        <link href="/admin/css/custom.min.css" rel="stylesheet">
+
+        <!--JQuery Lib-->
+        <script src="/jquery.min.js"></script>
+        <!-- toastr notification -->
+        <link rel="stylesheet" type="text/css" href="/toastr/toastr.min.css">
+        <!--[if lt IE 9]>
+              <script src="../assets/js/ie8-responsive-file-warning.js"></script>
+              <![endif]-->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+                <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+                <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+              <![endif]-->
+          
+        <style>
+          .wrap {
+            margin: 50px;
+          }
+          .projects > thead > tr > th {
+            font-size: 18px;
+            text-align: center;
+          }
+          .projects > tbody > tr > td {
+            font-size: 14px;
+            text-align: center;
+          }
+          .selected {
+              background-color: lightgray
+            }
+          .hover:hover {
+              background-color: lightgray;
+          }
+          .hover:hover button {
+              display: inline-block;
+          }
+        </style>
+    </head>
+    <body style="background:#F7F7F7;">
+      <div class="wrap">
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3 style="text-align: center"><u><%= currentUser.fullname %> - Projects</u></h3>
+              </div>
+
+              <div class="title_right">
+                <button onclick="logout()" class="btn btn-default pull-right">Log out</button>
+              </div>
+            </div>
+            
+            <div class="clearfix"></div>
+            <br><br><br>
+            <div class="container">
+                <% projects.forEach(p => { %>
+                    <a href="/user/project/<%= p.urlName %>" class="btn btn-primary btn-lg btn-block" style="font-size: 25px;padding:25px; width: 80%; margin: 0 auto; margin-top: 10px"><%= p.name %></a>
+                <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- jQuery -->
+    <script src="/admin/js/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/admin/js/bootstrap.min.js"></script>
+    <!-- toastr -->
+    <script src="/toastr/toastr.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="/admin/js/custom.min.js"></script>
+    <!-- Vue.js2 -->
+    <script src="/vue/vue.js"></script>
+    <script src="/vue-tables-2-master/dist/vue-tables-2.min.js"></script>
+    <!-- Rest js files -->
+    <script src="/js/rest.js"></script>
+    <!-- <script src="/js/admin/projects.js"></script> -->
+    <script type="text/javascript">
+      <% errors.forEach(function (error) { %>
+          toastr.error("<%= error %>");       
+      <% }) %>
+      <% infos.forEach(function (info) { %>
+          toastr.info("<%= info %>");       
+      <% }) %>
+    </script>
+    </body>
+
+</html>

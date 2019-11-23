@@ -1,0 +1,166 @@
+<% include ./tags/admin/head %>
+<meta name="projectId" content="<%= project._id %>">
+
+<style>
+.selected {
+    background-color: lightgray
+    }
+.hover:hover {
+    background-color: lightgray;
+}
+.hover:hover button {
+    display: inline-block;
+}
+.ch {
+  margin-bottom: 10px;
+}
+input[type=checkbox]
+{
+  transform: scale(1.7);
+}
+.input-link {
+  background-color: lightgrey
+}
+</style>
+<% include ./tags/admin/header %>
+
+      <!-- page content -->
+      <div class="right_col" role="main">
+        <div class="page-title">
+          <div class="title_left">
+            <h3><%= project.name %> <small>Manage Links for Channels C1 and C4</small></h3>
+          </div>
+        </div>
+          
+        <div class="clearfix"></div>
+        <br><br>
+        <div id="content">
+          <div v-for="c in channels">
+            <div v-if="c.name === 'C1' || c.name === 'C4'">
+              <h3><u> {{c.name}} Links</u>
+                <span style="margin-left: 140px">
+                  <button type="button" :id="c._id" onclick="openModal(this.id)" class="btn btn-success">Add Link</button>
+                  <button type="button" :id="c._id" v-on:click="updateLink(c)" class="btn btn-info">Update Links</button>
+                </span>
+              </h3>
+              <ul style="list-style-type: none">
+                <li v-for="l in c.links">
+                  <div class="row" style="padding: 20px; background-color:cornflowerblue; border-radius:5px; margin-bottom: 20px ">
+                    <div class="col-md-6 col-lg-6"><input class="form-control input-link" :class="c._id" type="text" v-model="l.name" placeholder="Enter link name here"></div>
+                    <div class="col-md-6 col-lg-6 pull-right"><button type="button" v-on:click="deleteLink(c, c.links.indexOf(l))" class="btn btn-danger">Remove Link</button></div>
+                    <div class="col-md-12 col-lg-12"><input class="form-control input-link" :class="c._id" type="text" v-model="l.url" placeholder="Enter url here"></div>
+                  </div>
+                </li>
+              </ul>
+              <br><br><br>
+            </div>
+          </div>
+          <!-- Modal create-->
+          <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <form action="/rest/admin/channelsLink" method="POST">
+                  <div class="modal-header">
+                    <h3 class="modal-title" id="ModalLabel">Add Link</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <input class="form-control" type="text" name="name" placeholder="Enter name of Link">
+                    <br>
+                    <input class="form-control" type="text" name="url" placeholder="Enter url here">
+                    <input type="hidden" class="form-control" name="_csrf" value="<%= csrfToken %>" />
+                    <input type="hidden" name="channelId" :value="channelId">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- /Modal create -->
+        </div>
+      </div>
+      <!-- /page content -->
+
+        <% include ./tags/admin/footer %>
+        <script src="/vue-tables-2-master/dist/vue-tables-2.min.js"></script>
+        <script type="text/javascript">
+          var vue = new Vue({
+          el: "#content",
+          data: {
+            channels: [],
+            channel: {},
+            project: {},
+            channelId: "",
+            projectId: "<%= project._id %>",
+            user: "<%= currentUser.fullname %>"
+          },
+          methods: {
+            findItem(id) {
+              for (var c of this.channels) {
+                if (c._id === id) {
+                  this.channel = c;
+                  break;
+                }
+              }
+            },
+            updateLink(channel) {
+              updateLink(channel._id, channel.links);
+            },
+            deleteLink(channel, index) {
+              channel.links.splice(index, 1);
+            }
+          }
+        });
+
+      var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+      var openModal = (id) => {
+        vue.channelId = id;
+        $('#createModal').modal('show');
+      }
+
+      var updateLink = (id, links) => {
+        fetch("/rest/admin/channelsLink/" + id, {
+          headers: {
+              'Content-Type': 'application/json',
+              'csrf-token': csrfToken
+          },
+          method: "PUT",
+          body: JSON.stringify({newLinks: links})
+        })
+        .then(response => {
+            if (response.status === 200) {
+              response.json().then(data => {
+                toastr.success(data.message);
+              });
+            } else {
+              response.json().then(data => {
+                  toastr.error(data.message);
+              });
+            }
+        })
+        .catch(err => {
+            toastr.error(err);
+        });
+        
+      }
+
+      window.onload = function() {
+          // Fetch data for users.
+          fetch('/vue-tables/admin/<%= project._id %>/channelLinks')
+          .then(function(response) {
+              return response.json();
+          })
+          .then(function(data) {
+            vue.channels = data.channels;
+          });
+      };
+      
+    </script>
+  </body>
+</html>

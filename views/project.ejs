@@ -1,0 +1,46 @@
+<% include ./tags/admin/head %>
+<meta name="projectId" content="<%= project._id %>">
+<style>
+.selected {
+    background-color: lightgray
+    }
+.hover:hover {
+    background-color: lightgray;
+}
+.hover:hover button {
+    display: inline-block;
+}
+.note {
+  padding: 15px;
+  background-color: rgb(174, 243, 183)
+}
+.admin-note {
+  padding: 15px;
+  background-color: #83def3;
+}
+</style>
+<% include ./tags/admin/header %>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="page-title"></div>
+          <div class="clearfix"></div>
+          <div><h3 style="text-align: center; margin-top:30px"><u><%= currentUser.fullname%> - <%= project.name %></u></h3></div>
+          <br><br>
+          <div><h3 style="text-align: center"><u>Level: <%= currentUser.projects[project._id].level %></u></h3></div>
+        </div>
+        <!-- /page content -->
+
+        <% include ./tags/admin/footer %>
+        <script src="/vue-tables-2-master/dist/vue-tables-2.min.js"></script>
+        <!-- <script src="/js/admin/project.js"></script> -->
+        <script type="text/javascript">
+          <% errors.forEach(function (error) { %>
+              toastr.error("<%= error %>");       
+          <% }) %>
+          <% infos.forEach(function (info) { %>
+              toastr.info("<%= info %>");       
+          <% }) %>
+      </script>
+  </body>
+</html>

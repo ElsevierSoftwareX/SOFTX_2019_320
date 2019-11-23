@@ -1,0 +1,60 @@
+<% include ./tags/admin/head %>
+<link href="/chat.css" rel="stylesheet">
+<meta name="projectId" content="<%= project._id %>">
+<style>
+.selected {
+    background-color: lightgray
+    }
+.hover:hover {
+    background-color: lightgray;
+}
+.hover:hover button {
+    display: inline-block;
+}
+div.chatBox {
+  width: 100%;
+  margin: 0 auto;
+  border: 4px solid #53bb78;
+}
+/* div.chat {
+  height: 70vh;
+  overflow: auto;
+} */
+div.message {
+  width: 60%;
+  background-color: #cad6d6;
+}
+div.message-mine {
+  width: 60%;
+  background-color: lightgreen;
+}
+body {
+  overflow: hidden;
+}
+</style>
+<% include ./tags/admin/header %>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="clearfix"></div>
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading" style=" background-color: cadetblue">
+                <h3 style="text-align: center;">Channel <%= channel.name %> Links</h3>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+            <% channel.links.forEach(l => { %>
+              <h3><u><%= l.name %></u>&nbsp;&nbsp;
+                <span><a href="<%= l.url %>"><i class="fa fa-folder-open" aria-hidden="true"></i></a></span>
+              </h3>
+            <% }) %>
+          </div>
+        </div>
+        <!-- /page content -->
+
+        <% include ./tags/admin/footer %>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+</head>
+<body class="nav-md">
+  <div class="container body">
+    <div class="main_container">
+      <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+          <div class="navbar nav_title" style="border: 0;">
+            <a href="/" class="btn btn-primary btn-lg" style="height:auto; width: 100%">Home</a>
+            <br>
+          </div>
+          <div class="clearfix"></div>
+          <br />
+          <!-- sidebar menu -->
+          <h4 class="site_title"><%= project.name %></h4>
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+              <ul class="nav side-menu">
+                <% if (currentUser.role === 'admin') { %>
+                  <li><a href="/admin/project/<%= project.urlName %>"><i class="fa fa-users"></i> Users </a></li>
+                  <li><a href="/admin/project/<%= project.urlName %>/subprojects"><i class="fa fa-cogs"></i> Support-Projects </a></li>
+                  <li><a href="/admin/project/<%= project._id %>/channels"><i class="fa fa-align-center"></i> Channels </a></li>
+                  <li><a href="/admin/project/<%= project._id %>/channel-links"><i class="fa fa-align-center"></i> Channel Links </a></li>
+                <% } else if (currentUser.role === 'user') { %>
+                  <% channels.forEach(c => { %>
+                    <% if (c.permitStatus.includes(currentUser.projects[project._id].level)) { %>
+                      <% if (c.name === 'C6') { %>
+                        <li><a href="/c6/<%= project._id %>"><i class="fa fa-folder-open" aria-hidden="true"></i> Channel - <%= c.name %> </a></li>
+                      <% } else { %>
+                        <li><a href="/<%= project.urlName %>/<%= c.urlName%>"><i class="fa fa-folder-open" aria-hidden="true"></i> Channel - <%= c.name %> </a></li>
+                      <% } %>
+                    <% } %>
+                  <% }) %>
+                <% } %>
+              </ul>
+            </div>
+          </div>
+          <!-- /sidebar menu -->
+        </div>
+      </div>
+      <!-- top navigation -->
+      <div class="top_nav">
+        <div class="nav_menu">
+          <nav>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="">
+                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <%= currentUser.fullname %>  
+                  <span class=" fa fa-angle-down"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" onclick="logout()"><i class="fa fa-sign-out pull-right"></i> Log out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <!-- /top navigation -->
