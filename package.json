@@ -1,7 +1,7 @@
 {
-  "name": "chat-app",
+  "name": "HC-4-PM",
   "version": "1.0.0",
-  "description": "chat application",
+  "description": "communication app",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -30,7 +30,6 @@
     "passport-local": "^1.0.0",
     "socket.io": "^2.3.0",
     "winston": "^3.2.1",
-    "winston-daily-rotate-file": "^3.8.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.0"
