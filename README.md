@@ -2,6 +2,9 @@
 
 A web based node.js app about Communication Management.
 
+- [**What is HC-4-PM**](https://github.com/Kyripana/HC-4-PM/blob/master/What%20is%20HC-4-PM.pdf)
+- [**User's guide**](https://github.com/Kyripana/HC-4-PM/blob/master/HC-4-PM%20Documentum%20administrator%20and%20user%20guide_v01.pdf)
+
 
 ## Getting Started
 
@@ -18,11 +21,11 @@ These instructions will get you a copy of the project. You will be able to run t
 
 Clone the repository 
 ```
-git clone https://github.com/****.git
+git clone https://github.com/Kyripana/HC-4-PM.git
 ```
 Then go to project path and install the dependencies.
 ```
-cd HC_4_PM
+cd HC-4-PM
 npm install
 ```
 ### Running
@@ -40,6 +43,5 @@ This is a weak password, but it is used for testing purpose.
 Visit the following link to access the app.
 [http://localhost:3000/](http://localhost:3000/)
 
-## License
+## [License](https://github.com/Kyripana/HC-4-PM/blob/master/LICENSE)
 
-This project is licensed under the MIT License.
