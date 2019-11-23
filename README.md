@@ -10,6 +10,9 @@ A web based node.js app about Communication Management.
 
 These instructions will get you a copy of the project. You will be able to run the project on your local machine for development and testing. This project is tested and works on **Linux** but it should work on any OS.
 
+The admin panel pages of the project use the Gentelella - Bootstrap Admin Template by Colorlib.
+
+
 ### Prerequisites
 
 1. Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed on your system.
